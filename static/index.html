@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>OPNsense Update Panel</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        button { margin: 8px 0; padding: 10px 20px; font-size: 16px; }
+        pre { background: #eee; padding: 15px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+<h1>OPNsense Update Panel</h1>
+
+<button onclick="call('status')">Check Status</button><br>
+<button onclick="call('update')">Run Update</button><br>
+<button onclick="call('upgrade')">Run Major Upgrade</button><br>
+
+<h2>Response:</h2>
+<pre id="output"></pre>
+
+<script>
+function call(endpoint) {
+    fetch('/api/' + endpoint, { method: 'POST' })
+        .then(r => r.text())
+        .then(t => document.getElementById('output').innerText = t)
+        .catch(err => document.getElementById('output').innerText = err);
+}
+</script>
+
+</body>
+</html>
